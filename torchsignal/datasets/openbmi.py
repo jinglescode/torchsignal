@@ -4,7 +4,8 @@ import scipy.io as sio
 from typing import Tuple
 
 from torch import Tensor
-from torch.utils.data import Dataset
+# from torch.utils.data import Dataset
+from torchsignal.datasets.dataset import PyTorchDataset
 
 
 def _load_data(root, subject_id, session, verbose):
@@ -45,7 +46,7 @@ def _load_data(root, subject_id, session, verbose):
     return data, targets, channel_names
 
 
-class OPENBMI(Dataset):
+class OPENBMI(PyTorchDataset):
     """
     This is a private dataset.
     EEG dataset and OpenBMI toolbox for three BCI paradigms: an investigation into BCI illiteracy.
@@ -57,19 +58,13 @@ class OPENBMI(Dataset):
 
     def __init__(self, root: str, subject_id: int, session: int, verbose: bool = False) -> None:
 
-        self.data, self.targets, self.channel_names = _load_data(
-            root, subject_id, session, verbose)
+        self.root = root
         self.sample_rate = 1000
+        self.data, self.targets, self.channel_names = _load_data(
+            self.root, subject_id, session, verbose)
 
     def __getitem__(self, n: int) -> Tuple[np.ndarray, int]:
         return (self.data[n], self.targets[n])
 
     def __len__(self) -> int:
         return len(self.data)
-
-    def set_data_targets(self, data: [] = None, targets: [] = None) -> None:
-        if data is not None:
-            self.data = data
-        if targets is not None:
-            self.targets = targets
-        
