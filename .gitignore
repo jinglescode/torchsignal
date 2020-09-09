@@ -131,3 +131,5 @@ dmypy.json
 # extras
 .DS_Store
 /_data
+/_tmp_models
+/_dev

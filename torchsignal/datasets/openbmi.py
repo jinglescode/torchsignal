@@ -3,11 +3,33 @@ import numpy as np
 import scipy.io as sio
 from typing import Tuple
 
-from torch import Tensor
-# from torch.utils.data import Dataset
 from torchsignal.datasets.dataset import PyTorchDataset
 
 
+class OPENBMI(PyTorchDataset):
+    """
+    This is a private dataset.
+    EEG dataset and OpenBMI toolbox for three BCI paradigms: an investigation into BCI illiteracy.
+    Min-Ho Lee, O-Yeon Kwon, Yong-Jeong Kim, Hong-Kyung Kim, Young-Eun Lee, John Williamson, Siamac Fazli, Seong-Whan Lee.
+    https://academic.oup.com/gigascience/article/8/5/giz002/5304369
+    Target frequencies: 5.45, 6.67, 8.57, 12 Hz
+    Sampling rate: 1000 Hz
+    """
+
+    def __init__(self, root: str, subject_id: int, session: int, verbose: bool = False) -> None:
+
+        self.root = root
+        self.sample_rate = 1000
+        self.data, self.targets, self.channel_names = _load_data(
+            self.root, subject_id, session, verbose)
+
+    def __getitem__(self, n: int) -> Tuple[np.ndarray, int]:
+        return (self.data[n], self.targets[n])
+
+    def __len__(self) -> int:
+        return len(self.data)
+
+    
 def _load_data(root, subject_id, session, verbose):
 
     path = os.path.join(root, 'session'+str(session),
@@ -44,27 +66,3 @@ def _load_data(root, subject_id, session, verbose):
         print('Targets shape', targets.shape)
 
     return data, targets, channel_names
-
-
-class OPENBMI(PyTorchDataset):
-    """
-    This is a private dataset.
-    EEG dataset and OpenBMI toolbox for three BCI paradigms: an investigation into BCI illiteracy.
-    Min-Ho Lee, O-Yeon Kwon, Yong-Jeong Kim, Hong-Kyung Kim, Young-Eun Lee, John Williamson, Siamac Fazli, Seong-Whan Lee.
-    https://academic.oup.com/gigascience/article/8/5/giz002/5304369
-    Target frequencies: 5.45, 6.67, 8.57, 12 Hz
-    Sampling rate: 1000 Hz
-    """
-
-    def __init__(self, root: str, subject_id: int, session: int, verbose: bool = False) -> None:
-
-        self.root = root
-        self.sample_rate = 1000
-        self.data, self.targets, self.channel_names = _load_data(
-            self.root, subject_id, session, verbose)
-
-    def __getitem__(self, n: int) -> Tuple[np.ndarray, int]:
-        return (self.data[n], self.targets[n])
-
-    def __len__(self) -> int:
-        return len(self.data)

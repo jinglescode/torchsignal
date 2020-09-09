@@ -3,3 +3,4 @@ numpy
 scipy
 mne
 matplotlib
+sklearn
