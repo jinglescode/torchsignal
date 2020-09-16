@@ -1,5 +1,7 @@
 # torchsignal: a signal processing library for PyTorch
 
+The torchsignal package consists of datasets, model architectures, and common signal processing functions before applying on PyTorch. A toolbox for data manipulation and transformation for signal processing.
+
 ## Installation
 
 Currently, this has not been released. Use Git or checkout with SVN, and install the dependencies:
@@ -25,6 +27,8 @@ Work in progress. Meanwhile see the [examples folder](https://github.com/jingles
 
 We aim to bridge the gap for anyone who are new signals processings to get started.
 
+- [What Are Signals?: An Introduction to Signals](https://github.com/jinglescode/torchsignal/wiki/What-Are-Signals%3F)
+- [Generate Signals](https://github.com/jinglescode/torchsignal/wiki/Generate-Signals)
 - [Butterworth Filter](https://github.com/jinglescode/torchsignal/wiki/Butterworth-Filter)
 
 ## Contributing Guidelines
