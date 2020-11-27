@@ -31,7 +31,7 @@ We aim to bridge the gap for anyone who are new signals processings to get start
 
 Please let us know if you encounter a bug by filing an [issue](https://github.com/jinglescode/torchsignal/issues).
 
-Seeking for collaborators to contribute new features, utility functions, bug fixes and documentation. Currenly, I am working on this alone. If you are working on signal processing, or brain-computer interface, and keen to build a high quality package to apply PyTorch to the signal processing domain, reach out to me via [various channels](https://jinglescode.github.io/).
+Seeking for collaborators to contribute new features, utility functions, bug fixes, and documentation. Currently, I am working on this alone. If you are working on signal processing or brain-computer interface, and keen to build a high-quality package to apply PyTorch to the signal processing domain, reach out to me via [various channels](https://jinglescode.github.io/).
 
 ## Disclaimer on Datasets
 

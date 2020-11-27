@@ -73,7 +73,9 @@ def butter_bandpass_filter_signal_1d(signal, lowcut, highcut, sample_rate, order
         plt.ylabel('Gain')
         plt.grid(True)
         plt.legend(loc='best')
-        plt.xlim([0, highcut+10])
+        low = max(0, lowcut-(sample_rate/100))
+        high = highcut+(sample_rate/100)
+        plt.xlim([low, high])
         plt.ylim([0, 1.2])
         plt.title('Frequency response of filter - lowcut:' +
                   str(lowcut)+', highcut:'+str(highcut))

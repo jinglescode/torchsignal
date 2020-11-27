@@ -190,7 +190,7 @@ class Multitask_Trainer(object):
                 for i in range(self.num_classes):
                     labels.append( Y.T[i].long().to(self.device) )
             else:
-                labels = Y.to(self.device)
+                labels = Y.long().to(self.device)
             
             if train_mode:
                 self.optimizer.zero_grad()
