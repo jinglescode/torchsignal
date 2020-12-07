@@ -19,6 +19,14 @@ See [requirements.txt](https://github.com/jinglescode/torchsignal/tree/master/re
 
 See the [examples folder](https://github.com/jinglescode/torchsignal/tree/master/examples).
 
+## Models
+
+These are the models available in this repo:
+- Multitask Model
+- EEGNet
+
+See [model](https://github.com/jinglescode/torchsignal/tree/master/torchsignal/model) for more information.
+
 ## API Reference
 
 Work in progress. Meanwhile see the [examples folder](https://github.com/jinglescode/torchsignal/tree/master/examples).
