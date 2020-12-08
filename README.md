@@ -25,7 +25,7 @@ These are the models available in this repo:
 - Multitask Model
 - EEGNet
 
-See [model](https://github.com/jinglescode/torchsignal/tree/master/torchsignal/model) for more information.
+See the [list of models](https://github.com/jinglescode/torchsignal/tree/master/torchsignal/model).
 
 ## API Reference
 

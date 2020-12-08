@@ -5,7 +5,9 @@
 Using multi-task learning to capture signals simultaneously from the fovea efficiently and the neighboring targets in the peripheral vision generate a visual response map. A calibration-free user-independent solution, desirable for clinical diagnostics. A stepping stone for an objective assessment of glaucoma patients’ visual field. Learn more about this model at https://jinglescode.github.io/ssvep-multi-task-learning/.
 
 ```
-model = Multitask_Model(num_channel=10,
+from torchsignal.model import MultitaskSSVEP
+
+model = MultitaskSSVEP(num_channel=10,
     num_classes=40,
     signal_length=1000,
     filters_n1=4,
@@ -26,6 +28,8 @@ print("Output shape:", y.shape)
 EEGNet: Compact Convolutional Neural Network (Compact-CNN) https://arxiv.org/pdf/1803.04566.pdf
 
 ```
+from torchsignal.model import CompactEEGNet
+
 model = CompactEEGNet(
     num_channel=10,
     num_classes=4,

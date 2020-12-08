@@ -3,8 +3,9 @@
 """
 import torch
 from torch import nn
+from .common.conv import SeparableConv2d
 
-    
+
 class CompactEEGNet(nn.Module):
     """
     EEGNet: Compact Convolutional Neural Network (Compact-CNN)
@@ -61,26 +62,3 @@ class CompactEEGNet(nn.Module):
         x = self.linear(x)
         
         return x
-        
-        
-class SeparableConv2d(nn.Module):
-    def __init__(self, in_channels, out_channels, kernel_size, bias=False):
-        super(SeparableConv2d, self).__init__()
-        
-        if isinstance(kernel_size, int):
-            padding = kernel_size // 2
-            
-        if isinstance(kernel_size, tuple):
-            padding = (
-                kernel_size[0]//2 if kernel_size[0]-1 != 0 else 0,
-                kernel_size[1]//2 if kernel_size[1]-1 != 0 else 0
-            )
-            
-        self.depthwise = nn.Conv2d(in_channels, in_channels, kernel_size=kernel_size, padding=padding, groups=in_channels, bias=bias)
-        self.pointwise = nn.Conv2d(in_channels, out_channels, kernel_size=1, bias=bias)
-
-    def forward(self, x):
-        out = self.depthwise(x)
-        out = self.pointwise(out)
-        return out
-
