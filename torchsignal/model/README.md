@@ -41,3 +41,49 @@ print("Input shape:", x.shape)
 y = model(x)
 print("Output shape:", y.shape)
 ```
+
+## Performer
+
+Rethinking Attention with Performers
+https://arxiv.org/abs/2009.14794
+
+```
+from torchsignal.model import Performer
+
+model = Performer(
+    dim = 11,
+    depth = 1,
+    heads = 1,
+    causal = True
+)
+
+x = torch.randn(1, 1000, 11)
+print("Input shape:", x.shape) # torch.Size([1, 1000, 11])
+y = model(x)
+print("Output shape:", y.shape) # torch.Size([1, 1000, 11])
+```
+
+## WaveNet
+
+WaveNet: A Generative Model for Raw Audio
+https://arxiv.org/abs/1609.03499.
+
+```
+from torchsignal.model import WaveNet
+
+model = WaveNet(
+    layers=6,
+    blocks=3,
+    dilation_channels=32,
+    residual_channels=32,
+    skip_channels=1024,
+    classes=9,
+    end_channels=512, 
+    bias=True
+)
+
+x = torch.randn(2, 9, 250)
+print("Input shape:", x.shape) # torch.Size([2, 9, 250])
+y = model(x)
+print("Output shape:", y.shape) # torch.Size([2, 9, 128])
+```

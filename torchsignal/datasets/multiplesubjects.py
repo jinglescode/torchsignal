@@ -89,7 +89,7 @@ class MultipleSubjects():
         # data loader
         train_loader = DataLoader(train_dataset, batch_size=dataloader_batchsize, shuffle=dataloader_shuffle)
         val_loader = DataLoader(val_dataset, batch_size=dataloader_batchsize, shuffle=dataloader_shuffle)
-        selected_subject_loader = DataLoader(test_dataset, batch_size=dataloader_batchsize, shuffle=dataloader_shuffle)
+        selected_subject_loader = DataLoader(test_dataset, batch_size=dataloader_batchsize, shuffle=False)
         
         return train_loader, val_loader, selected_subject_loader
 
