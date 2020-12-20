@@ -23,7 +23,7 @@ y = model(x)
 print("Output shape:", y.shape)
 ```
 
-## EEGNet 
+## EEGNet (Compact)
 
 EEGNet: Compact Convolutional Neural Network (Compact-CNN) https://arxiv.org/pdf/1803.04566.pdf
 
@@ -86,4 +86,19 @@ x = torch.randn(2, 9, 250)
 print("Input shape:", x.shape) # torch.Size([2, 9, 250])
 y = model(x)
 print("Output shape:", y.shape) # torch.Size([2, 9, 128])
+```
+
+## MI-EEGNet
+MI-EEGNET: A novel Convolutional Neural Network for motor imagery classification
+https://www.sciencedirect.com/science/article/abs/pii/S016502702030460X
+
+```
+from torchsignal.model import MIEEGNet
+
+model = MIEEGNet(num_channel=22, num_classes=12, signal_length=256)
+
+x = torch.randn(1, 22, 256)
+print("Input shape:", x.shape) # torch.Size([1, 22, 256])
+y = model(x)
+print("Output shape:", y.shape) # torch.Size([1, 12])
 ```
