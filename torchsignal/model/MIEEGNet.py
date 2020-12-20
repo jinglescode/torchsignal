@@ -18,9 +18,9 @@ class MIEEGNet(nn.Module):
         print("Output shape:", y.shape) # torch.Size([1, 12])
         
     Note:
-        1. My implementation, I did not get the same number of parameters as stated in the paper. This model has 106304 params instead of 162564 as stated in the paper.
-        2. Somehow this kind of architecture only support `signal_length` with length of ^2 (128, 256, 512, etc).
-        3. Also some certain `num_classes` might have issues.
+        1. In my implementation, I did not get the same number of parameters as stated in the paper. This model has 106304 params instead of 162564 as stated in the paper.
+        2. Somehow this kind of architecture only support `signal_length` with length of ^2 (128, 256, 512, etc), because of the 4 towers, the size must align.
+        3. Certain `num_classes` might have issues, because they specifically state to use global pooling at the end. Replacing it with a linear or a Conv2d can better manage the kernel sizes.
     """
     def __init__(self, num_channel=22, num_classes=4, signal_length=256, depth=4, first_filter_size=64):
         super().__init__()
