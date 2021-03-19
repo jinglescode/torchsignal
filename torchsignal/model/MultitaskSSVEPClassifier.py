@@ -3,14 +3,14 @@ from torch import nn
 from .common.conv import Conv2dBlockELU
 
 
-class MultitaskSSVEP(nn.Module):
+class MultitaskSSVEPClassifier(nn.Module):
     """
     Using multi-task learning to capture signals simultaneously from the fovea efficiently and the neighboring targets in the peripheral vision generate a visual response map. A calibration-free user-independent solution, desirable for clinical diagnostics. A stepping stone for an objective assessment of glaucoma patients’ visual field.
     Learn more about this model at https://jinglescode.github.io/ssvep-multi-task-learning/
     This model is a multi-label model. Although it produces multiple outputs, we also used this model to get our multi-class results in our paper.
     
     Usage:
-        model = MultitaskSSVEP(
+        model = MultitaskSSVEPClassifier(
             num_channel=11,
             num_classes=40,
             signal_length=250,
@@ -19,7 +19,7 @@ class MultitaskSSVEP(nn.Module):
         x = torch.randn(2, 11, 250)
         print("Input shape:", x.shape) # torch.Size([2, 11, 250])
         y = model(x)
-        print("Output shape:", y.shape) # torch.Size([2, 40, 2])
+        print("Output shape:", y.shape) # torch.Size([2, 40])
         
     Cite:
         @inproceedings{khok2020deep,
@@ -36,13 +36,14 @@ class MultitaskSSVEP(nn.Module):
         super().__init__()
 
         filters = [filters_n1, filters_n1 * 2]
+        self.num_classes = num_classes
 
         self.conv_1 = Conv2dBlockELU(in_channels=1, out_channels=filters[0], kernel_size=(1, kernel_window_ssvep), w_in=signal_length)
         self.conv_2 = Conv2dBlockELU(in_channels=filters[0], out_channels=filters[0], kernel_size=(num_channel, 1))
         self.conv_3 = Conv2dBlockELU(in_channels=filters[0], out_channels=filters[1], kernel_size=(1, kernel_window), padding=(0,conv_3_dilation-1), dilation=(1,conv_3_dilation), w_in=self.conv_1.w_out)
         self.conv_4 = Conv2dBlockELU(in_channels=filters[1], out_channels=filters[1], kernel_size=(1, kernel_window), padding=(0,conv_4_dilation-1), dilation=(1,conv_4_dilation), w_in=self.conv_3.w_out)
         self.conv_mtl = multitask_block(filters[1]*num_classes, num_classes, kernel_size=(1, self.conv_4.w_out))
-        
+        self.classify = nn.Conv1d(num_classes, num_classes, kernel_size=2)
         self.dropout = nn.Dropout(p=0.5)
 
     def forward(self, x):
@@ -57,8 +58,10 @@ class MultitaskSSVEP(nn.Module):
         x = self.dropout(x)
 
         x = self.conv_mtl(x)
+        x = self.classify(x)
+        x = x.view(-1, self.num_classes)
         return x
-
+    
     
 class multitask_block(nn.Module):
     def __init__(self, in_ch, num_classes, kernel_size):
